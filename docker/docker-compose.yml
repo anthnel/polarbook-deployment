@@ -1,6 +1,4 @@
-version: "3.8"
 services:
-
   # Applications
 
   catalog-service:
@@ -84,7 +82,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: 127.0.0.1:24224
-  
+
   edge-service:
     depends_on:
       - fluent-bit
@@ -151,11 +149,11 @@ services:
       driver: fluentd
       options:
         fluentd-address: 127.0.0.1:24224
-  
+
   # Backing Services
 
   polar-postgres:
-    image: "postgres:15.2"
+    image: "docker.io/library/postgres:15.2"
     container_name: "polar-postgres"
     ports:
       - 5432:5432
@@ -179,7 +177,7 @@ services:
       - 15672:15672
     volumes:
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-  
+
   polar-keycloak:
     image: quay.io/keycloak/keycloak:19.0
     container_name: "polar-keycloak"
@@ -242,7 +240,7 @@ services:
     container_name: tempo
     command: -config.file /etc/tempo-config.yml
     ports:
-      - "3110:3100"     # Tempo
-      - "4317:4317"     # OTel
+      - "3110:3100" # Tempo
+      - "4317:4317" # OTel
     volumes:
       - ./observability/tempo/tempo.yml:/etc/tempo-config.yml
