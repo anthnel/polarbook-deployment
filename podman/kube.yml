@@ -24,17 +24,17 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: polar-backend
+  name: polarbookshop
   labels:
-    comp: polar-backend
+    comp: polarbookshop
 spec:
   selector:
     matchLabels:
-      comp: polar-backend
+      comp: polarbookshop
   template:
     metadata:
       labels:
-        comp: polar-backend
+        comp: polarbookshop
     spec:
       containers:
         - name: catalog-service
@@ -43,6 +43,37 @@ spec:
             - protocol: TCP
               hostPort: 9001
               containerPort: 9001
+          resources: {}
+        - name: order-service
+          image: order-service
+          ports:
+            - protocol: TCP
+              hostPort: 9002
+              containerPort: 9002
+          resources: {}
+        - name: dispatcher-service
+          image: dispatcher-service
+          ports:
+            - protocol: TCP
+              hostPort: 9003
+              containerPort: 9003
+          resources: {}
+        - name: edge-service
+          image: edge-service
+          ports:
+            - protocol: TCP
+              hostPort: 9000
+              containerPort: 9000
+          resources: {}
+        - name: polar-ui
+          image: ghcr.io/polarbookshop/polar-ui:v1
+          env:
+            - name: PORT
+              value: "9004"
+          ports:
+            - protocol: TCP
+              hostPort: 9004
+              containerPort: 9004
           resources: {}
         - name: polar-postgres
           image: postgres:15.2
