@@ -11,7 +11,6 @@ data:
     vm_memory_high_watermark.relative = 1.0
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,7 +28,7 @@ spec:
     spec:
       containers:
         - name: polar-rabbitmq
-          image: rabbitmq:3.11-management
+          image: docker.io/rabbitmq:3.11-management
           resources:
             requests:
               cpu: 100m
@@ -46,7 +45,6 @@ spec:
             name: rabbitmq-config
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -58,11 +56,11 @@ spec:
   selector:
     db: polar-rabbitmq
   ports:
-  - name: amqp
-    protocol: TCP
-    port: 5672
-    targetPort: 5672
-  - name: management
-    protocol: TCP
-    port: 15672
-    targetPort: 15672
+    - name: amqp
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
+    - name: management
+      protocol: TCP
+      port: 15672
+      targetPort: 15672

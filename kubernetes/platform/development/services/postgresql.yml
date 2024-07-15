@@ -10,7 +10,6 @@ data:
     CREATE DATABASE polardb_order;
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,7 +27,7 @@ spec:
     spec:
       containers:
         - name: polar-postgres
-          image: postgres:15.2
+          image: docker.io/bitnami/postgresql:15
           env:
             - name: POSTGRES_USER
               value: user
@@ -50,7 +49,6 @@ spec:
             name: postgres-config
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
