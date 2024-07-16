@@ -39,6 +39,9 @@ spec:
       containers:
         - name: catalog-service
           image: catalog-service
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: testdata
           ports:
             - protocol: TCP
               hostPort: 9001
@@ -66,7 +69,7 @@ spec:
               containerPort: 9000
           resources: {}
         - name: polar-ui
-          image: ghcr.io/polarbookshop/polar-ui:v1
+          image: docker.io/anthnel/polar-ui:v1
           env:
             - name: PORT
               value: "9004"
@@ -129,7 +132,7 @@ spec:
             - mountPath: /etc/rabbitmq
               name: rabbitmq-config-volume
         - name: polar-keycloak
-          image: quay.io/keycloak/keycloak:19.0
+          image: docker.io/keycloak/keycloak:20.0
           args:
             - "start-dev"
           ports:
